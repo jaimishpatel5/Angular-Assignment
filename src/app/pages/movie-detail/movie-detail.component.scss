@@ -1,0 +1,56 @@
+.movie-detail-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  color: #fff;
+}
+
+.movie-detail-card {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 900px;
+  background-color: #2a2a2a;
+  padding: 1.5rem;
+
+  .poster-section {
+    flex: 1 1 300px;
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 8px;
+    }
+  }
+
+  .info-section {
+    flex: 2 1 400px;
+    padding: 1rem;
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tagline {
+      font-style: italic;
+      color: #ccc;
+      margin-bottom: 1rem;
+    }
+
+    .overview {
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin: 0.5rem 0;
+    }
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}

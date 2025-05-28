@@ -6,5 +6,10 @@ export const routes: Routes = [
     path: '',
     component: LandingComponent
   },
+  {
+  path: 'movie/:id',
+  loadComponent: () => import('./pages/movie-detail/movie-detail.component').then(m => m.MovieDetailComponent)
+}
+
   // Add more routes here later
 ];

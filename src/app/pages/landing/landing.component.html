@@ -26,23 +26,28 @@
         <div *ngIf="searchQuery && searchResults.length > 0" class="results">
             <h2>Search Results</h2>
             <div class="movie-grid">
-                <mat-card *ngFor="let movie of searchResults" class="movie-card mat-elevation-z3">
-                    <img mat-card-image
-                        [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : '/assets/fallback-poster.jpeg'"
-                        alt="Poster for {{ movie.title || movie.name }}">
+                <a *ngFor="let movie of searchResults" [routerLink]="['/movie', movie.id]" class="movie-link">
+                    <mat-card class="movie-card mat-elevation-z3">
+                        <img mat-card-image [src]="movie.poster_path
+            ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
+            : '/assets/fallback-poster.jpeg'" alt="Poster for {{ movie.title || movie.name }}" />
 
-                    <mat-card-title class="movie-title" [attr.data-full-title]="movie.title || movie.name">
-                        {{ movie.title || movie.name }}
-                    </mat-card-title>
-                    <mat-card-subtitle *ngIf="movie.release_date">
-                        Release: {{ movie.release_date | date:'yyyy' }}
-                    </mat-card-subtitle>
-                    <mat-card-content>
-                        ⭐ {{ movie.vote_average || 'N/A' }}
-                    </mat-card-content>
-                </mat-card>
+                        <mat-card-title class="movie-title" [attr.data-full-title]="movie.title || movie.name">
+                            {{ movie.title || movie.name }}
+                        </mat-card-title>
+
+                        <mat-card-subtitle *ngIf="movie.release_date">
+                            Release: {{ movie.release_date | date: 'yyyy' }}
+                        </mat-card-subtitle>
+
+                        <mat-card-content>
+                            ⭐ {{ movie.vote_average || 'N/A' }}
+                        </mat-card-content>
+                    </mat-card>
+                </a>
             </div>
         </div>
+
 
 
 
@@ -66,18 +71,22 @@
         <h2>Movies for "{{ selectedMoodLabel }}"</h2>
 
         <div class="movie-grid">
-            <mat-card *ngFor="let movie of movies" class="movie-card mat-elevation-z3">
-                <img mat-card-image
-                    [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : 'assets/fallback-poster.jpeg'"
-                    alt="Poster for {{ movie.title || movie.name }}">
+            <a *ngFor="let movie of movies" [routerLink]="['/movie', movie.id]" class="movie-link">
+                <mat-card class="movie-card mat-elevation-z3">
+                    <img mat-card-image
+                        [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : 'assets/fallback-poster.jpeg'"
+                        alt="Poster for {{ movie.title || movie.name }}" />
 
-                <mat-card-title class="movie-title" [attr.data-full-title]="movie.title">{{ movie.title
-                    }}</mat-card-title>
-                <mat-card-subtitle>Release: {{ movie.release_date | date:'yyyy' }}</mat-card-subtitle>
-                <mat-card-content>
-                    ⭐ {{ movie.vote_average }}
-                </mat-card-content>
-            </mat-card>
+                    <mat-card-title class="movie-title" [attr.data-full-title]="movie.title">
+                        {{ movie.title }}
+                    </mat-card-title>
+                    <mat-card-subtitle>Release: {{ movie.release_date | date: 'yyyy' }}</mat-card-subtitle>
+                    <mat-card-content>
+                        ⭐ {{ movie.vote_average }}
+                    </mat-card-content>
+                </mat-card>
+            </a>
         </div>
     </div>
+
 </div>
