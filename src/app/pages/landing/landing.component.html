@@ -1,32 +1,52 @@
 <div class="landing-container">
-  <mat-toolbar color="primary" class="toolbar">
-    <span class="logo">🎬 MovieMood</span>
-  </mat-toolbar>
+    <mat-toolbar color="primary" class="toolbar">
+        <span class="logo">🎬 MovieMood</span>
 
-  <div class="hero">
-    <h1>What Should I Watch Tonight?</h1>
-    <p class="subheading">Pick a vibe and we’ll find you something amazing to watch.</p>
+    </mat-toolbar>
 
-    <div class="mood-buttons">
-      <button mat-raised-button color="accent" (click)="selectMood('feel-good')">
-        😊 Feel Good
-      </button>
-      <button mat-raised-button color="warn" (click)="selectMood('action')">
-        💥 Action Fix
-      </button>
-      <button mat-raised-button color="primary" (click)="selectMood('mind-benders')">
-        🧠 Mind Benders
-      </button>
+    <div class="hero">
+        <h1>What Should I Watch Tonight?</h1>
+        <p class="subheading">Pick a vibe and we’ll find you something amazing to watch.</p>
+
+        <!-- Search Input -->
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="text" placeholder="Search for movies or actors" [(ngModel)]="searchQuery" />
+            </div>
+            <button class="search-button" (click)="onSearch()">Search</button>
+        </div>
+
+
+        <div class="mood-buttons">
+            <button mat-raised-button color="accent" (click)="selectMood('feel-good')">
+                😊 Feel Good
+            </button>
+            <button mat-raised-button color="warn" (click)="selectMood('action')">
+                💥 Action Fix
+            </button>
+            <button mat-raised-button color="primary" (click)="selectMood('mind-benders')">
+                🧠 Mind Benders
+            </button>
+        </div>
     </div>
-  </div>
 
-  <div *ngIf="selectedMood" class="results">
-    <h2>Movies for "{{ selectedMoodLabel }}"</h2>
-    <!-- Future: Insert movie cards here -->
-    <mat-card class="placeholder-card mat-elevation-z2">
-      <mat-card-content>
-        🔍 TMDB results will show here once integrated.
-      </mat-card-content>
-    </mat-card>
-  </div>
+
+
+
+    <div *ngIf="selectedMood" class="results">
+        <h2>Movies for "{{ selectedMoodLabel }}"</h2>
+
+        <div class="movie-grid">
+            <mat-card *ngFor="let movie of movies" class="movie-card mat-elevation-z3">
+                <img mat-card-image [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+                    alt="Poster for {{ movie.title }}">
+                <mat-card-title class="movie-title" [attr.data-full-title]="movie.title">{{ movie.title
+                    }}</mat-card-title>
+                <mat-card-subtitle>Release: {{ movie.release_date | date:'yyyy' }}</mat-card-subtitle>
+                <mat-card-content>
+                    ⭐ {{ movie.vote_average }}
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
 </div>
