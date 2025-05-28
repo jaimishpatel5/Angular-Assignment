@@ -19,7 +19,7 @@ export class TmdbService {
   }
 
   searchMoviesAndActors(query: string) {
-    return this.http.get(`${this.baseUrl}/search/multi`, {
+    return this.http.get<any>(`${this.baseUrl}/search/multi`, {
       params: {
         api_key: environment.tmdbApiKey,
         query

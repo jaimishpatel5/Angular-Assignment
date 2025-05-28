@@ -10,14 +10,43 @@
 
         <!-- Search Input -->
         <div class="search-section">
-            <div class="search-bar">
-                <input type="text" placeholder="Search for movies or actors" [(ngModel)]="searchQuery" />
+            <mat-form-field class="search-bar" appearance="outline">
+                <mat-label>Search for movies or actors</mat-label>
+                <input matInput [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()" />
+            </mat-form-field>
+        </div>
+
+        <ng-container *ngIf="loading">
+            <div class="loading-spinner">
+                <mat-progress-spinner mode="indeterminate" diameter="50" strokeWidth="5" color="accent">
+                </mat-progress-spinner>
             </div>
-            <button class="search-button" (click)="onSearch()">Search</button>
+        </ng-container>
+
+        <div *ngIf="searchQuery && searchResults.length > 0" class="results">
+            <h2>Search Results</h2>
+            <div class="movie-grid">
+                <mat-card *ngFor="let movie of searchResults" class="movie-card mat-elevation-z3">
+                    <img mat-card-image
+                        [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : '/assets/fallback-poster.jpeg'"
+                        alt="Poster for {{ movie.title || movie.name }}">
+
+                    <mat-card-title class="movie-title" [attr.data-full-title]="movie.title || movie.name">
+                        {{ movie.title || movie.name }}
+                    </mat-card-title>
+                    <mat-card-subtitle *ngIf="movie.release_date">
+                        Release: {{ movie.release_date | date:'yyyy' }}
+                    </mat-card-subtitle>
+                    <mat-card-content>
+                        ⭐ {{ movie.vote_average || 'N/A' }}
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </div>
 
 
-        <div class="mood-buttons">
+
+        <div *ngIf="!searchQuery || searchQuery.trim() === ''" class="mood-buttons">
             <button mat-raised-button color="accent" (click)="selectMood('feel-good')">
                 😊 Feel Good
             </button>
@@ -38,8 +67,10 @@
 
         <div class="movie-grid">
             <mat-card *ngFor="let movie of movies" class="movie-card mat-elevation-z3">
-                <img mat-card-image [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-                    alt="Poster for {{ movie.title }}">
+                <img mat-card-image
+                    [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : 'assets/fallback-poster.jpeg'"
+                    alt="Poster for {{ movie.title || movie.name }}">
+
                 <mat-card-title class="movie-title" [attr.data-full-title]="movie.title">{{ movie.title
                     }}</mat-card-title>
                 <mat-card-subtitle>Release: {{ movie.release_date | date:'yyyy' }}</mat-card-subtitle>

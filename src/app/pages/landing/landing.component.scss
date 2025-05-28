@@ -108,6 +108,30 @@
 
     }
 
+    .loading-spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+
+        mat-progress-spinner {
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+
     .results {
         text-align: center;
         padding: 2rem;
