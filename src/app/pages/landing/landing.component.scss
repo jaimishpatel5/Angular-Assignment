@@ -1,0 +1,71 @@
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #1f1f1f, #3c3c3c);
+  color: #ffffff;
+
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  }
+
+  .hero {
+    flex-grow: 1;
+    text-align: center;
+    padding: 3rem 1.5rem;
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .subheading {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      color: #cccccc;
+    }
+
+    .mood-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      button {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+
+  .results {
+    text-align: center;
+    padding: 2rem;
+
+    h2 {
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+    }
+
+    .placeholder-card {
+      margin: 0 auto;
+      width: 300px;
+      background-color: #2a2a2a;
+      color: #fff;
+    }
+  }
+}

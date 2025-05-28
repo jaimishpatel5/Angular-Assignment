@@ -1,1 +1,32 @@
-<p>landing works!</p>
+<div class="landing-container">
+  <mat-toolbar color="primary" class="toolbar">
+    <span class="logo">🎬 MovieMood</span>
+  </mat-toolbar>
+
+  <div class="hero">
+    <h1>What Should I Watch Tonight?</h1>
+    <p class="subheading">Pick a vibe and we’ll find you something amazing to watch.</p>
+
+    <div class="mood-buttons">
+      <button mat-raised-button color="accent" (click)="selectMood('feel-good')">
+        😊 Feel Good
+      </button>
+      <button mat-raised-button color="warn" (click)="selectMood('action')">
+        💥 Action Fix
+      </button>
+      <button mat-raised-button color="primary" (click)="selectMood('mind-benders')">
+        🧠 Mind Benders
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="selectedMood" class="results">
+    <h2>Movies for "{{ selectedMoodLabel }}"</h2>
+    <!-- Future: Insert movie cards here -->
+    <mat-card class="placeholder-card mat-elevation-z2">
+      <mat-card-content>
+        🔍 TMDB results will show here once integrated.
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
