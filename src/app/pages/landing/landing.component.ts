@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -22,7 +22,7 @@ import { MatBadgeModule } from '@angular/material/badge';
   imports: [CommonModule, MatButtonModule, MatCardModule, MatToolbarModule, MatFormFieldModule,
     MatInputModule, FormsModule, MatIconModule, MatProgressSpinnerModule, RouterModule, CarouselModule, MatBadgeModule,],
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.scss']
+  styleUrls: ['./landing.component.scss'],
 
 })
 export class LandingComponent {

@@ -1,33 +1,27 @@
 <div class="watchlist-container" *ngIf="watchlist.length > 0; else emptyState">
 
   <button mat-icon-button class="back-button" (click)="goBack()">
-    <mat-icon>arrow_back</mat-icon>
+    <mat-icon style="color: white;">arrow_back</mat-icon>
   </button>
   <h2>My Watchlist</h2>
 
   <div class="movie-grid">
-    <a
-      *ngFor="let movie of watchlist"
-      [routerLink]="['/movie', movie.id]"
-      class="movie-link"
-    >
+    <a *ngFor="let movie of watchlist" [routerLink]="['/movie', movie.id]" class="movie-link">
       <mat-card class="movie-card mat-elevation-z3">
-        <img
-          mat-card-image
-          [src]="movie.poster_path
-            ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
-            : '/assets/fallback-poster.jpeg'"
-          alt="Poster for {{ movie.title || movie.name }}"
-        />
+        <button mat-icon-button class="remove-button"
+          (click)="removeFromWatchlist(movie.id); $event.preventDefault(); $event.stopPropagation()">
+          <mat-icon>close</mat-icon>
+        </button>
 
-        <mat-card-title
-          class="movie-title"
-          [attr.data-full-title]="movie.title || movie.name"
-        >
+        <img mat-card-image [src]="movie.poster_path
+      ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
+      : '/assets/fallback-poster.jpeg'" alt="Poster for {{ movie.title || movie.name }}" />
+
+        <mat-card-title class="movie-title" [attr.data-full-title]="movie.title || movie.name">
           {{ movie.title || movie.name }}
         </mat-card-title>
 
-        <mat-card-subtitle *ngIf="movie.release_date">
+        <mat-card-subtitle style="color:azure" *ngIf="movie.release_date">
           Release: {{ movie.release_date | date: 'yyyy' }}
         </mat-card-subtitle>
 
@@ -35,6 +29,8 @@
           ⭐ {{ movie.vote_average || 'N/A' }}
         </mat-card-content>
       </mat-card>
+
+
     </a>
   </div>
 </div>

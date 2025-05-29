@@ -65,6 +65,28 @@ src/
 └── styles.scss
 ```
 
+## CI/CD & Deployment 
+This project includes a CI/CD pipeline using GitHub Actions and is deployed to AWS S3. Every push to the main branch automatically triggers a new production build and deploys the updated app to an S3 bucket configured for static website hosting.
+
+# Setup Summary:
+- CI/CD Tool: GitHub Actions
+- Hosting Platform: AWS S3 (static website hosting)
+- Trigger: On every push to the main branch
+- Build Command: npm run build (Angular production build)
+- Deployment: Built files in dist/angular-temp are synced to S3
+
+# GitHub Secrets Configured:
+To securely authenticate and deploy to AWS, the following secrets are configured in GitHub repository settings:
+
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY
+- AWS_S3_BUCKET_NAME
+- AWS_REGION
+
+# Workflow File:
+A GitHub Actions workflow (.github/workflows/deploy.yml) is used to:
+
+
 
 ## License 📄
 
