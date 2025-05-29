@@ -1,4 +1,8 @@
 <div class="watchlist-container" *ngIf="watchlist.length > 0; else emptyState">
+
+  <button mat-icon-button class="back-button" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
   <h2>My Watchlist</h2>
 
   <div class="movie-grid">

@@ -16,9 +16,6 @@ import { CarouselComponent, OwlOptions } from 'ngx-owl-carousel-o';
 import { MatBadgeModule } from '@angular/material/badge';
 
 
-
-
-
 @Component({
   selector: 'app-landing',
   standalone: true,
@@ -48,11 +45,15 @@ export class LandingComponent {
 
   featuredMovies: any[] = [];
   sliderOptions: OwlOptions = {
-    loop: false,
+    loop: true,
     nav: false,
+    navSpeed: 700,
+    autoplay: true,
+    autoplayTimeout: 5000,
     dots: true,
     margin: 10,
-    items: 1
+    items: 1,
+    navText: ['', ''],
   };
 
 
@@ -80,6 +81,7 @@ export class LandingComponent {
   searchQuery = '';
   searchResults: any[] = [];
   wishlistCount = 0;
+  mobileMenuOpen = false;
 
   onSearchChange() {
     const trimmed = this.searchQuery.trim();
@@ -101,7 +103,8 @@ export class LandingComponent {
   ngOnInit(): void {
     this.loadWishlistCount();
     this.tmdbService.getFeaturedMovies().subscribe((res: any) => {
-      this.featuredMovies = res.results.slice(0, 1);
+      this.featuredMovies = res.results.slice(0, 5);
+      console.log('Featured Movies:', this.featuredMovies);
 
     });
   }
@@ -124,23 +127,29 @@ export class LandingComponent {
   addToWatchlist(movie: any) {
     const stored = localStorage.getItem('watchlist');
     let watchlist = stored ? JSON.parse(stored) : [];
-
-    // Check if movie already exists
     const alreadyInList = watchlist.some((m: any) => m.id === movie.id);
     if (alreadyInList) {
       alert('Already in Watchlist!');
       return;
     }
-
     watchlist.push(movie);
     localStorage.setItem('watchlist', JSON.stringify(watchlist));
 
-    // Refresh count
+
     this.loadWishlistCount();
 
     alert('Added to Watchlist!');
   }
 
+
+  logMovie(movie: any): boolean {
+    console.log('Rendering movie:', movie.id, movie.title);
+    return true;
+  }
+
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
 
 
 

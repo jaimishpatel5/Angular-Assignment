@@ -1,68 +1,80 @@
 <div class="landing-container">
+    <!-- Toolbar -->
     <mat-toolbar color="primary" class="toolbar">
         <span class="logo">🎬 MovieMood</span>
-
         <span class="spacer"></span>
 
-        <div class="right-actions">
-            <div class="search-section">
-                <mat-form-field class="search-bar" appearance="outline">
-                    <mat-label>Search for movies or actors</mat-label>
-                    <input matInput [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()" />
-                </mat-form-field>
-            </div>
+        <!-- Search always visible -->
+        <div class="search-section">
+            <mat-form-field class="search-bar white-search" appearance="outline">
+                <mat-label>Search for movies or actors</mat-label>
+                <input matInput [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()" />
+            </mat-form-field>
+        </div>
 
-         
+        <!-- Desktop buttons -->
+        <div class="right-actions desktop-buttons">
             <div class="mood-navbar-buttons">
-                <button mat-button (click)="selectMood('feel-good')" class="gradient-btn feel-good">Feel
-                    Good</button>
+                <button mat-button (click)="selectMood('feel-good')" class="gradient-btn feel-good">Feel Good</button>
                 <button mat-button (click)="selectMood('action')" class="gradient-btn action">Action Fix</button>
-                <button mat-button (click)="selectMood('mind-benders')" class="gradient-btn mind">Mind
-                    Benders</button>
+                <button mat-button (click)="selectMood('mind-benders')" class="gradient-btn mind">Mind Benders</button>
             </div>
 
-            <!-- ❤️ Wishlist button -->
             <button mat-raised-button class="wishlist-button" [routerLink]="['/watchlist']"
-                matBadge="{{ wishlistCount }}" matBadgeColor="accent" matBadgeOverlap="false">
+                matBadge="{{ wishlistCount }}" matBadgeColor="accent">
                 ❤️ Watchlist
             </button>
         </div>
+
+        <!-- Hamburger button (only on small screens) -->
+        <button mat-icon-button class="hamburger" (click)="toggleMobileMenu()">
+            <mat-icon>menu</mat-icon>
+        </button>
     </mat-toolbar>
 
-
-
-
-    <!-- Featured Slider -->
-    <div class="featured-slider" *ngIf="!selectedMood && !searchQuery">
-        <owl-carousel-o [options]="sliderOptions">
-            <ng-container *ngFor="let movie of featuredMovies; trackBy: trackByMovieId">
-                <ng-template carouselSlide>
-                    <div class="slider-card">
-                        <img [src]="'https://image.tmdb.org/t/p/original' + movie.backdrop_path" alt="{{ movie.title }}"
-                            (error)="onImageError($event)" />
-
-                        <div class="slider-overlay">
-                            <div class="slider-content">
-                                <h2>{{ movie.title }}</h2>
-                                <p class="overview">{{ movie.overview }}</p>
-                                <div class="slider-buttons">
-                                    <button mat-raised-button color="primary">Play Now</button>
-                                    <button mat-stroked-button (click)="addToWatchlist(movie)">Add to Watchlist</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-            </ng-container>
-        </owl-carousel-o>
+    <!-- Mobile dropdown menu -->
+    <div class="mobile-dropdown-panel" *ngIf="mobileMenuOpen">
+        <div class="mood-navbar-buttons">
+            <button mat-button (click)="selectMood('feel-good')">Feel Good</button>
+            <button mat-button (click)="selectMood('action')">Action Fix</button>
+            <button mat-button (click)="selectMood('mind-benders')">Mind Benders</button>
+        </div>
+        <button mat-raised-button class="wishlist-button" [routerLink]="['/watchlist']" matBadge="{{ wishlistCount }}"
+            matBadgeColor="accent">
+            ❤️ Watchlist
+        </button>
     </div>
 
 
+    <!-- Featured Slider -->
+    <div class="featured-slider-nav" *ngIf="!selectedMood && !searchQuery">
+        <owl-carousel-o [options]="sliderOptions">
+            <ng-template carouselSlide *ngFor="let movie of featuredMovies; let i = index"
+                [id]="'slide-' + movie.id + '-' + i">
+                <div class="slider-card-new">
+                    <img [src]="'https://image.tmdb.org/t/p/original' + movie.backdrop_path" alt="{{ movie.title }}"
+                        (error)="onImageError($event)" />
 
+                    <div class="slider-overlay-new">
+                        <div class="slider-content-new">
+                            <h2>{{ movie.title }}</h2>
+                            <p class="overview">{{ movie.overview }}</p>
+                            <div class="slider-buttons-new">
+                                <button mat-raised-button style="background-color: #e50914; color: white;">Play
+                                    Now</button>
+                                <button mat-stroked-button style="border-color: white; color: white;"
+                                    (click)="addToWatchlist(movie)">
+                                    Add to Watchlist
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </owl-carousel-o>
+    </div>
 
     <div class="hero">
-
-
         <div *ngIf="searchQuery && searchResults.length > 0" class="results">
             <h2>Search Results</h2>
             <div class="movie-grid">
@@ -87,12 +99,7 @@
                 </a>
             </div>
         </div>
-
-
     </div>
-
-
-
 
     <div *ngIf="selectedMood" class="results">
         <h2>Movies for "{{ selectedMoodLabel }}"</h2>
