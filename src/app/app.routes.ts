@@ -9,7 +9,12 @@ export const routes: Routes = [
   {
   path: 'movie/:id',
   loadComponent: () => import('./pages/movie-detail/movie-detail.component').then(m => m.MovieDetailComponent)
+},
+{
+  path: 'watchlist',
+  loadComponent: () =>
+    import('./pages/watchlist.component').then(
+      (m) => m.WatchlistComponent
+    )
 }
-
-  // Add more routes here later
 ];

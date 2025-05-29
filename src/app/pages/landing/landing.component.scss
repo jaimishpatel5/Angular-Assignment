@@ -1,7 +1,7 @@
 .landing-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
     margin: auto;
     background: linear-gradient(to bottom right, #1f1f1f, #3c3c3c);
     color: #ffffff;
@@ -14,7 +14,7 @@
         z-index: 1000;
         background-color: #3f51b5;
         display: flex;
-        justify-content: space-between;
+        align-items: center;
         padding: 0 1.5rem;
         height: 64px;
 
@@ -23,16 +23,190 @@
             font-weight: bold;
             color: white;
         }
+
+        .spacer {
+            flex: 1 1 auto; // pushes the right content to the end
+        }
+
+        .right-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+
+        }
+
+        .search-section {
+            display: flex;
+            align-items: center;
+
+            .search-bar {
+                width: 420px;
+                height: 58px;
+
+                ::ng-deep .mat-form-field-flex {
+                    background-color: rgba(255, 255, 255, 0.7);
+                    border-radius: 999px !important; // pill shape
+                    height: 48px;
+                    padding: 0 1rem;
+                }
+
+                ::ng-deep .mat-form-field-outline-start,
+                ::ng-deep .mat-form-field-outline-end {
+                    border-radius: 999px !important;
+                }
+
+                ::ng-deep .mat-form-field-outline {
+                    border-radius: 999px !important;
+                    stroke: transparent; // hide default stroke
+                }
+
+                ::ng-deep .mat-form-field-outline-thick {
+                    stroke: black; // black border on focus
+                }
+
+                ::ng-deep .mat-input-element {
+                    color: black;
+                }
+
+                ::ng-deep .mat-form-field-label {
+                    color: black !important;
+                }
+
+                ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-input-element {
+                    color: white !important;
+                }
+
+                ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-label {
+                    color: white !important;
+                }
+
+                ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-flex {
+                    background-color: rgba(255, 255, 255, 0.15); // fade background slightly on focus
+                    border: 2px solid black !important;
+                }
+            }
+        }
+
+
     }
+
+    .mood-navbar-buttons {
+        display: flex;
+        gap: 0.75rem;
+
+        .gradient-btn {
+            color: #fff;
+            font-weight: 500;
+            border-radius: 20px;
+            padding: 0.5rem 1.2rem;
+            background-image: linear-gradient(to right, #ff8a00, #e52e71);
+            transition: transform 0.2s ease-in-out;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+
+            &.feel-good {
+                background-image: linear-gradient(to right, #00c9ff, #92fe9d);
+            }
+
+            &.action {
+                background-image: linear-gradient(to right, #ff416c, #ff4b2b);
+            }
+
+            &.mind {
+                background-image: linear-gradient(to right, #8e2de2, #4a00e0);
+            }
+        }
+    }
+
+    .wishlist-button {
+        background: linear-gradient(to right, #2c2c2c, #444);
+        color: white;
+        border-radius: 20px;
+        padding: 0.5rem 1.5rem;
+        font-weight: bold;
+        text-transform: none;
+        transition: background 0.3s, transform 0.2s;
+
+        &:hover {
+            background: linear-gradient(to right, #3d3d3d, #555);
+            transform: scale(1.05);
+        }
+
+        .mat-badge-content {
+            background-color: #ff4081;
+            color: #fff;
+            font-weight: bold;
+        }
+
+    }
+
 
     .spacer {
         flex: 1 1 auto;
     }
 
+    .featured-slider {
+        margin-top: 2rem;
+    }
+
+    .slider-card {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .slider-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(60%);
+    }
+
+    .slider-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 2rem;
+        color: #fff;
+    }
+
+    .slider-content {
+        max-width: 50%;
+    }
+
+    .slider-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .slider-content .overview {
+        font-size: 1.1rem;
+        line-height: 1.5;
+        max-height: 8rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .slider-buttons {
+        margin-top: 1.5rem;
+        display: flex;
+        gap: 1rem;
+    }
+
     .hero {
         flex-grow: 1;
         text-align: center;
-        padding: 6rem 1.5rem 3rem; // extra top padding for fixed toolbar
+        padding: 6rem 1.5rem 3rem;
 
         h1 {
             font-size: 3rem;
@@ -84,28 +258,6 @@
                 }
             }
         }
-
-
-        .mood-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-
-            button {
-                padding: 1rem 2rem;
-                font-size: 1.1rem;
-                border-radius: 8px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-                transition: transform 0.2s ease-in-out;
-
-                &:hover {
-                    transform: scale(1.05);
-                }
-            }
-        }
-
-
     }
 
     .loading-spinner {
@@ -130,7 +282,6 @@
             }
         }
     }
-
 
     .results {
         text-align: center;

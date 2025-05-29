@@ -1,46 +1,50 @@
-<div class="movie-detail-container" *ngIf="!loading && movie; else loadingTemplate">
-  <mat-card class="movie-detail-card mat-elevation-z4">
-    <div class="poster-section">
+<div class="movie-detail-container">
+  <div class="movie-detail-wrapper">
+<mat-card class="movie-detail-card mat-elevation-z4">
+
+  <!-- 🎬 Top Action Bar -->
+  <div class="top-actions" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+    <button mat-icon-button color="primary" (click)="goBack()">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <div style="display: flex; gap: 12px;">
+      <button mat-raised-button style="background: linear-gradient(135deg, #1e1e1e, #3a3a3a); color: white;" (click)="toggleWatchlist()">
+        {{ isInWatchlist ? 'Remove from Watchlist' : 'Add to Watchlist' }}
+      </button>
+
+      <button mat-raised-button style="background: linear-gradient(135deg, #1e1e1e, #3a3a3a); color: white;"(click)="showTrailer = !showTrailer" [disabled]="!trailerKey">
+        {{ showTrailer ? 'Hide Trailer' : 'Play Trailer' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- 🎞 Poster or Trailer -->
+  <div class="poster-section">
+    <ng-container *ngIf="!showTrailer; else trailerBlock">
       <img
         [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : '/assets/fallback-poster.jpeg'"
-        alt="{{ movie.title }}"
-      />
-    </div>
+        alt="{{ movie.title }}" />
+    </ng-container>
 
-    <div class="info-section">
-      <h2>{{ movie.title }}</h2>
-      <p class="tagline" *ngIf="movie.tagline">"{{ movie.tagline }}"</p>
-      <p class="overview">{{ movie.overview }}</p>
-
-      <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
-      <p><strong>Rating:</strong> ⭐ {{ movie.vote_average }}</p>
-      <p *ngIf="movie.runtime"><strong>Runtime:</strong> {{ movie.runtime }} mins</p>
-      <p><strong>Genres:</strong> {{ genreList }}</p>
-
-    </div>
-  </mat-card>
-
-  <div class="cast-section" *ngIf="cast && cast.length > 0">
-  <h3>Cast</h3>
-  <div class="cast-grid">
-    <div class="cast-card" *ngFor="let actor of cast">
-      <img
-        [src]="actor.profile_path ? 'https://image.tmdb.org/t/p/w185' + actor.profile_path : '/assets/fallback-poster.jpeg'"
-        alt="{{ actor.name }}"
-      />
-      <div class="actor-info">
-        <p class="actor-name">{{ actor.name }}</p>
-        <p class="character-name">as {{ actor.character }}</p>
-      </div>
-    </div>
+    <ng-template #trailerBlock>
+      <iframe width="100%" height="400" [src]="safeTrailerUrl" frameborder="0" allowfullscreen
+        style="border-radius: 8px;">
+      </iframe>
+    </ng-template>
   </div>
-</div>
 
-</div>
+  <!-- ℹ️ Movie Info -->
+  <div class="info-section">
+    <h2>{{ movie.title }}</h2>
+    <p class="tagline" *ngIf="movie.tagline">"{{ movie.tagline }}"</p>
+    <p class="overview">{{ movie.overview }}</p>
 
-<ng-template #loadingTemplate>
-  <div class="loading-spinner">
-    <mat-progress-spinner mode="indeterminate" diameter="60" strokeWidth="5" color="primary">
-    </mat-progress-spinner>
+    <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+    <p><strong>Rating:</strong> ⭐ {{ movie.vote_average }}</p>
+    <p *ngIf="movie.runtime"><strong>Runtime:</strong> {{ movie.runtime }} mins</p>
+    <p><strong>Genres:</strong> {{ genreList }}</p>
   </div>
-</ng-template>
+</mat-card>
+</div>
+</div>

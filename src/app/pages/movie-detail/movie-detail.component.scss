@@ -1,9 +1,48 @@
 .movie-detail-container {
   display: flex;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #121212;
+  color: #fff;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.movie-detail-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.movie-detail-container {
+  display: flex;
+  justify-content: center;      
+  align-items: center;          
+  min-height: 100vh;            
   padding: 2rem;
   color: #fff;
+  background-color: #121212;
+  overflow-y: auto;
 }
+
+::ng-deep {
+  .mat-raised-button.gradient-dark {
+    background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
+    color: #fff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+    border: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  .mat-raised-button.gradient-dark:hover {
+    background: linear-gradient(135deg, #292929, #4a4a4a);
+    transform: translateY(-1px);
+  }
+}
+
 
 .movie-detail-card {
   display: flex;

@@ -2,26 +2,66 @@
     <mat-toolbar color="primary" class="toolbar">
         <span class="logo">🎬 MovieMood</span>
 
+        <span class="spacer"></span>
+
+        <div class="right-actions">
+            <div class="search-section">
+                <mat-form-field class="search-bar" appearance="outline">
+                    <mat-label>Search for movies or actors</mat-label>
+                    <input matInput [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()" />
+                </mat-form-field>
+            </div>
+
+         
+            <div class="mood-navbar-buttons">
+                <button mat-button (click)="selectMood('feel-good')" class="gradient-btn feel-good">Feel
+                    Good</button>
+                <button mat-button (click)="selectMood('action')" class="gradient-btn action">Action Fix</button>
+                <button mat-button (click)="selectMood('mind-benders')" class="gradient-btn mind">Mind
+                    Benders</button>
+            </div>
+
+            <!-- ❤️ Wishlist button -->
+            <button mat-raised-button class="wishlist-button" [routerLink]="['/watchlist']"
+                matBadge="{{ wishlistCount }}" matBadgeColor="accent" matBadgeOverlap="false">
+                ❤️ Watchlist
+            </button>
+        </div>
     </mat-toolbar>
 
+
+
+
+    <!-- Featured Slider -->
+    <div class="featured-slider" *ngIf="!selectedMood && !searchQuery">
+        <owl-carousel-o [options]="sliderOptions">
+            <ng-container *ngFor="let movie of featuredMovies; trackBy: trackByMovieId">
+                <ng-template carouselSlide>
+                    <div class="slider-card">
+                        <img [src]="'https://image.tmdb.org/t/p/original' + movie.backdrop_path" alt="{{ movie.title }}"
+                            (error)="onImageError($event)" />
+
+                        <div class="slider-overlay">
+                            <div class="slider-content">
+                                <h2>{{ movie.title }}</h2>
+                                <p class="overview">{{ movie.overview }}</p>
+                                <div class="slider-buttons">
+                                    <button mat-raised-button color="primary">Play Now</button>
+                                    <button mat-stroked-button (click)="addToWatchlist(movie)">Add to Watchlist</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+    </div>
+
+
+
+
     <div class="hero">
-        <h1>What Should I Watch Tonight?</h1>
-        <p class="subheading">Pick a vibe and we’ll find you something amazing to watch.</p>
 
-        <!-- Search Input -->
-        <div class="search-section">
-            <mat-form-field class="search-bar" appearance="outline">
-                <mat-label>Search for movies or actors</mat-label>
-                <input matInput [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()" />
-            </mat-form-field>
-        </div>
-
-        <ng-container *ngIf="loading">
-            <div class="loading-spinner">
-                <mat-progress-spinner mode="indeterminate" diameter="50" strokeWidth="5" color="accent">
-                </mat-progress-spinner>
-            </div>
-        </ng-container>
 
         <div *ngIf="searchQuery && searchResults.length > 0" class="results">
             <h2>Search Results</h2>
@@ -49,19 +89,6 @@
         </div>
 
 
-
-
-        <div *ngIf="!searchQuery || searchQuery.trim() === ''" class="mood-buttons">
-            <button mat-raised-button color="accent" (click)="selectMood('feel-good')">
-                😊 Feel Good
-            </button>
-            <button mat-raised-button color="warn" (click)="selectMood('action')">
-                💥 Action Fix
-            </button>
-            <button mat-raised-button color="primary" (click)="selectMood('mind-benders')">
-                🧠 Mind Benders
-            </button>
-        </div>
     </div>
 
 
@@ -69,6 +96,12 @@
 
     <div *ngIf="selectedMood" class="results">
         <h2>Movies for "{{ selectedMoodLabel }}"</h2>
+        <ng-container *ngIf="loading">
+            <div class="loading-spinner">
+                <mat-progress-spinner mode="indeterminate" diameter="50" strokeWidth="5" color="accent">
+                </mat-progress-spinner>
+            </div>
+        </ng-container>
 
         <div class="movie-grid">
             <a *ngFor="let movie of movies" [routerLink]="['/movie', movie.id]" class="movie-link">

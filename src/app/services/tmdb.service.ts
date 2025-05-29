@@ -7,7 +7,7 @@ import { environment } from '../../environments/environments';
 export class TmdbService {
   private baseUrl = 'https://api.themoviedb.org/3';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   discoverMoviesByGenre(genreId: string) {
     return this.http.get(`${this.baseUrl}/discover/movie`, {
@@ -35,4 +35,14 @@ export class TmdbService {
       }
     });
   }
+
+  getMovieVideos(id: string) {
+    return this.http.get(`${this.baseUrl}/movie/${id}/videos?api_key=${environment.tmdbApiKey}`);
+  }
+  getFeaturedMovies() {
+    return this.http.get(`${this.baseUrl}/movie/now_playing?api_key=${environment.tmdbApiKey}`);
+  }
+
+
+
 }
