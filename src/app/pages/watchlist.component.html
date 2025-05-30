@@ -1,8 +1,18 @@
-<div class="watchlist-container" *ngIf="watchlist.length > 0; else emptyState">
-
-  <button mat-icon-button class="back-button" (click)="goBack()">
+<div style="display: flex; align-items: center; justify-content: space-between; position: relative; height: 56px;">
+  
+  <button mat-icon-button class="back-button" (click)="goBack()" aria-label="Go Back">
     <mat-icon style="color: white;">arrow_back</mat-icon>
   </button>
+  
+  <span style="position: absolute; left: 50%; transform: translateX(-50%); font-size: 28px; color: white; font-weight: bolder;">
+    My Watchlist
+  </span>
+  
+  <div style="width: 40px;"></div>
+</div>
+
+<div class="watchlist-container" *ngIf="watchlist.length > 0; else emptyState">
+
   <h2>My Watchlist</h2>
 
   <div class="movie-grid">
