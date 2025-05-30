@@ -13,8 +13,6 @@
 
 <div class="watchlist-container" *ngIf="watchlist.length > 0; else emptyState">
 
-  <h2>My Watchlist</h2>
-
   <div class="movie-grid">
     <a *ngFor="let movie of watchlist" [routerLink]="['/movie', movie.id]" class="movie-link">
       <mat-card class="movie-card mat-elevation-z3">
